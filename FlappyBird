@@ -1,0 +1,44 @@
+import javax.swing.*; // Import swing package for GUI components
+import java.awt.*; //Import AWT package for graphics and layouts
+import java.awt.event.*;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
+// Main class that extends JPanel for drawing game components
+public class FlappyBird extends JPanel  {
+
+    private Rectangle bird; //Declare the bird as a rectangle object
+    private int velocity = 0; // velocity of the bird, used to simulate gravity and flapping
+    private final int GRAVITY = 1; // Gravity effect, how fast the bird will fall
+    private final int FLAP_STENGTH = -15; // Flap strength, how high the bird will rise on a flap
+
+    //Constructor for our class (like init in python)
+    public FlappyBird() {
+        JFrame frame = new JFrame("Flappy Bird"); //Create a new window with the title "Flappy Bird"
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // set default close operation to exit the application
+        frame.setSize(800, 600); // set the size of the window to 800x600
+        frame.add(this); // Add this panel to the frame
+        frame.setVisible(true); // Make the window visible
+
+        bird = new Rectangle(50, 250, 30, 30); // Initialize the bird with position and size
+
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+
+        super.paintComponent(g); // Call the superclass method to hangle standard painting tasks
+        g.setColor(Color.RED); // set the color for painting the bird
+        g.fillRect(bird.x, bird.y, bird.width, bird.height); // Draw the bird as a filled rectangle
+
+    }
+
+    // Main method to start the game application
+    public static void main(String[] args) { //This is like main in C++
+        SwingUtilities.invokeLater(new Runnable() { //invokeLater is like an event queue for the operating system
+            public void run() { //run is the collection of the things we send to invokeLater
+                new FlappyBird(); // Create an instance of Flappy Bird to start the game
+            }
+        });
+    }
+}
