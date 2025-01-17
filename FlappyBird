@@ -1,11 +1,10 @@
 import javax.swing.*; // Import swing package for GUI components
 import java.awt.*; //Import AWT package for graphics and layouts
 import java.awt.event.*;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+
 
 // Main class that extends JPanel for drawing game components
-public class FlappyBird extends JPanel  {
+public class FlappyBird extends JPanel implements MouseListener {
 
     private Rectangle bird; //Declare the bird as a rectangle object
     private int velocity = 0; // velocity of the bird, used to simulate gravity and flapping
@@ -14,14 +13,25 @@ public class FlappyBird extends JPanel  {
 
     //Constructor for our class (like init in python)
     public FlappyBird() {
+
+        bird = new Rectangle(50, 250, 30, 30); // Initialize the bird with position and size
+
         JFrame frame = new JFrame("Flappy Bird"); //Create a new window with the title "Flappy Bird"
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // set default close operation to exit the application
         frame.setSize(800, 600); // set the size of the window to 800x600
         frame.add(this); // Add this panel to the frame
         frame.setVisible(true); // Make the window visible
 
-        bird = new Rectangle(50, 250, 30, 30); // Initialize the bird with position and size
+        addMouseListener(this); // add mouse listener to the panel to detect clicks
 
+        Timer timer = new Timer(20, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                bird.y += velocity; // update the bird's vertical pos based on its velocity
+                velocity += GRAVITY; // apply gravity to the bird's velocity
+                repaint(); // Redraw the panel to reflect the changed
+            }
+        });
+        timer.start(); // Start the timer to continuosly update the game logic and repaint
     }
 
     @Override
@@ -40,5 +50,30 @@ public class FlappyBird extends JPanel  {
                 new FlappyBird(); // Create an instance of Flappy Bird to start the game
             }
         });
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }
