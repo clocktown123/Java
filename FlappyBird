@@ -1,6 +1,8 @@
 import javax.swing.*; // Import swing package for GUI components
 import java.awt.*; //Import AWT package for graphics and layouts
 import java.awt.event.*;
+import java.util.ArrayList; // Import ArrayList for managing multiple pipes
+import java.util.Random; // Import Random for generating random pipe heights
 
 
 // Main class that extends JPanel for drawing game components
@@ -11,10 +13,17 @@ public class FlappyBird extends JPanel implements MouseListener {
     private final int GRAVITY = 1; // Gravity effect, how fast the bird will fall
     private final int FLAP_STENGTH = -15; // Flap strength, how high the bird will rise on a flap
 
+    private ArrayList<Rectangle> pipes; // List of pipes currently on the screen
+    private Random random; // Random gen for pipe heights
+    private int pipeSpawnTimer = 0;
+    private int score = 0; // Player's score
+
     //Constructor for our class (like init in python)
     public FlappyBird() {
 
         bird = new Rectangle(50, 250, 30, 30); // Initialize the bird with position and size
+        pipes = new ArrayList<>(); // Initialize the ArrayList to store pipes
+        random = new Random(); // Initialize the Random object for pipe height generation
 
         JFrame frame = new JFrame("Flappy Bird"); //Create a new window with the title "Flappy Bird"
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // set default close operation to exit the application
@@ -24,24 +33,99 @@ public class FlappyBird extends JPanel implements MouseListener {
 
         addMouseListener(this); // add mouse listener to the panel to detect clicks
 
-        Timer timer = new Timer(20, new ActionListener() {
+        Timer timer = new Timer(25, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 bird.y += velocity; // update the bird's vertical pos based on its velocity
                 velocity += GRAVITY; // apply gravity to the bird's velocity
+
+                movePipes(); // move pipes to the left
+                spawnPipes(); // spawn new pipes at regular intervals
+                checkCollisions(); // check for collisions between the bird and pipes
+
                 repaint(); // Redraw the panel to reflect the changed
             }
         });
         timer.start(); // Start the timer to continuosly update the game logic and repaint
     }
 
+    private void movePipes(){
+        for (int i = 0; i < pipes.size(); i++){
+            Rectangle pipe = pipes.get(i);
+            pipe.x -= 5; // move pipe to the left
+
+            if (pipe.x + pipe.width < 0){
+                pipes.remove(i);
+                i--; // adjust index after removal
+                score++;
+            }
+        }
+    }
+
+    private void spawnPipes(){
+        pipeSpawnTimer ++;
+        if (pipeSpawnTimer >= 100) {
+            int pipeHeight = random.nextInt(300) + 50;
+            int gap = 150; // gap between the pipes
+            pipes.add(new Rectangle(800, 0, 50, pipeHeight));//top pipe
+            pipes.add(new Rectangle(800, pipeHeight + gap, 50, 600 - pipeHeight - gap));
+            pipeSpawnTimer = 0;
+        }
+    }
+
+    private void checkCollisions(){
+        //if bird hits pipe
+        for (Rectangle pipe : pipes) {
+            if (bird.intersects(pipe)) {
+                gameOver();
+            }
+        }
+
+        // Check if the bird hits the top or bottom of the screen
+        if (bird.y < 0 || bird.y + bird.height > 600){
+            gameOver();
+        }
+    }
+
+    private void gameOver(){
+        //game over
+        JOptionPane.showMessageDialog(this, "Game Over! Your Score: " + score);
+        System.exit(0);
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
+        g.setColor(Color.CYAN);
+        g.fillRect(0, 0, 800, 600);
 
-        super.paintComponent(g); // Call the superclass method to hangle standard painting tasks
-        g.setColor(Color.RED); // set the color for painting the bird
-        g.fillRect(bird.x, bird.y, bird.width, bird.height); // Draw the bird as a filled rectangle
+        g.setColor(Color.RED);
+        g.fillRect(bird.x, bird.y, bird.width, bird.height);
 
+        g.setColor(Color.GREEN);
+        for (Rectangle pipe : pipes) {
+            g.fillRect(pipe.x, pipe.y, pipe.width, pipe.height);
+        }
+
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.drawString("Score: " + score, 10, 20);
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        velocity = FLAP_STENGTH;
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {}
+
+    @Override
+    public void mouseReleased(MouseEvent e) {}
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
 
     // Main method to start the game application
     public static void main(String[] args) { //This is like main in C++
@@ -52,28 +136,4 @@ public class FlappyBird extends JPanel implements MouseListener {
         });
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
 }
