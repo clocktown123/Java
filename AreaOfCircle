@@ -1,8 +1,11 @@
 /**
  * Write a description of class AreaOfCircle here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ *This program will ask the user for the radius of the circle.
+ *Then the program will calculate the area of a circle using that radius
+ *
+ * @author Jayden Clockston
+ * @version 9/14/25
  */
 
 import java.util.Scanner;
@@ -15,7 +18,7 @@ public class AreaOfCircle
        
         //variable section------------------------------
        
-        final double pi = 3.14; // the digits for pi
+        final double PI = 3.14; // the digits for pi
         double radius; // radius of the circle
         double area; // area of the circle
        
@@ -23,8 +26,8 @@ public class AreaOfCircle
        
         System.out.println("what is the radius of the circle?"); //ask the user what the radius of the circle is
         radius = stdIn.nextDouble(); //take the input of the radius from the user
-        area = pi * (radius * radius); //
-        System.out.println("the area of the circle is " + area);
+        area = PI * (radius * radius); // calculate the area
+        System.out.println("You input " + radius + " as the radius, the area of the circle is " + area); // print the radius given and the area calculated
        
        
        
