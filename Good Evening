@@ -1,0 +1,34 @@
+
+/**
+ * Write a description of class GoodEvening here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+import java.util.Scanner;
+
+public class GoodEvening
+{
+    public static void main(String[] args)
+    {
+        Scanner stdIn = new Scanner(System.in);
+       
+        //variable section------------------------------
+       
+        String firstName; // first name of user
+        String lastName; // last name of user
+       
+        //end of variable section ----------------------+
+       
+        System.out.println("what is your first name?"); //ask the user what their first name is
+        firstName = stdIn.next(); //take user input for first name
+        
+        System.out.println("what is your last name?"); //ask the user what their last name is
+        lastName = stdIn.next(); //take user input for last name
+        
+        System.out.println("Good Evening " + firstName.charAt(0) + " " + lastName); //final print statement
+       
+       
+       
+    }
+}
