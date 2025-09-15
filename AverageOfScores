@@ -1,0 +1,57 @@
+/**
+ * Write a description of class Project1 here.
+ *
+ * This program will ask the user for their first name, last name, and 5 test scores.
+ * Once the user has given their input, the program will spit out their first initial, last name, all 5 scores, and the average of those scores.
+ *
+ * @author Jayden Clockston
+ * @version 9/14/25
+ */
+import java.util.Scanner;
+
+public class ScoreAverages
+{
+   public static void main(String[] args)
+   {
+       Scanner stdIn = new Scanner(System.in);
+       
+       //Variables section----------------------------------------------------------------
+       
+       String firstName;
+       String lastName;
+       
+       
+       double testOne; // test score #1
+       double testTwo; // test score #2
+       double testThree; // test score #3
+       double testFour; // test score #4
+       double testFive; // test score #5
+       
+       int numberOfTests = 5; //a variable that holds the number of test scores (set to 5)
+       
+       double averageScore; //variable that holds the average of the test scores
+       
+       //end of variables section---------------------------------------------------------
+       
+       
+       System.out.println("What is your first name?"); //Asking the user for their first name
+       firstName = stdIn.next(); //taking input for the first name
+       
+       System.out.println("What is your last name?"); //Asking the user for their last name
+       lastName = stdIn.next(); //taking input for the last name
+       
+       System.out.println("Enter your five test scores seperated by a space: "); //Asking the user for their 5 test scores
+       testOne = stdIn.nextDouble(); //taking input for the first test score as a double
+       testTwo = stdIn.nextDouble(); //taking input for the second test score as a double
+       testThree = stdIn.nextDouble(); //taking input for the third test score as a double
+       testFour = stdIn.nextDouble(); //taking input for the fourth test score as a double
+       testFive = stdIn.nextDouble(); //taking input for the fifth test score as a double
+       
+       averageScore = ((testOne + testTwo + testThree + testFour + testFive)/numberOfTests); //This is taking the average of the test scores that the user entered
+       
+       //Below is the final print statement that outputs the users first initial, last name, all 5 test scores as ints, and then the average of those scores as a double.
+       System.out.println(firstName.charAt(0) + " " + lastName + " has entered the scores: " + testOne + ", " + testTwo + ", " + testThree + ", " + testFour + ", " + testFive + " with an average score of: " + averageScore);
+       
+       
+   }
+}
