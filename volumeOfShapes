@@ -1,0 +1,89 @@
+
+/**
+ * Write a description of class AreaOfCircle here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+
+import java.util.Scanner;
+
+public class AreaOfShape
+{
+    public static void main(String[] args)
+    {
+        Scanner stdIn = new Scanner(System.in);
+        
+        String quit = "";
+        
+        while (!quit.equalsIgnoreCase("q")){
+            
+            //variable section------------------------------
+            
+            String choice; // variable for choosing the shape
+            
+            //variables for sphere
+            double sphereRadius; // radius of the circle
+            final double fourThirds = 4/3.0;
+            
+            //variables for cube
+            double sideLength; // the length of one side for the square (all sides should be equal)
+            
+            //variables for cone
+            double coneRadius; // base of the triangle
+            double coneHeight; // height of the triangle
+            
+            //variables for rectangle
+            double rectangleLength; // base of the rectangle
+            double rectangleWidth;
+            double rectangleHeight; // height of the rectangle
+            
+            // area
+            double volume;
+            
+            System.out.printf("Please chose which shape to calculate the area for: sphere, cube, cone, rectangular prism\n");
+            choice = stdIn.nextLine();
+            
+            //end of variable section ----------------------
+            if (choice.equalsIgnoreCase("sphere")){
+                System.out.printf("what is the radius of the sphere?\n");
+                sphereRadius = stdIn.nextDouble();
+                volume = fourThirds*Math.PI*Math.pow(sphereRadius, 3);
+                System.out.printf("The shape chosen was a %s with a radius of %s \nwhich gives a volume of %.2f\n", choice, sphereRadius, volume );
+            }
+            else if (choice.equalsIgnoreCase("cube")){
+                System.out.printf("what is the length for one side of the cube? (all sides should be equal)\n");
+                sideLength = stdIn.nextDouble();
+                volume = Math.pow(sideLength, 3);
+                System.out.printf("The shape chosen was a %s with a side length of %s which gives an volume of %.2f\n", choice, sideLength, volume);
+            }
+            else if (choice.equalsIgnoreCase("cone")){
+                System.out.printf("what is the radius of the cone?\n");
+                coneRadius = stdIn.nextDouble();
+                System.out.printf("what is the height of the cone?\n");
+                coneHeight = stdIn.nextDouble();
+                volume = Math.PI * Math.pow(coneRadius, 2) * (coneHeight/3.0);
+                System.out.printf("The shape chosen was a %s with a radius of %s\nand a height of %s which gives a volume of %.2f\n", choice, coneRadius, coneHeight, volume);
+            }
+            else if (choice.equalsIgnoreCase("rectangular prism")){
+                System.out.printf("what is the length of the rectangle?\n");
+                rectangleLength = stdIn.nextDouble();
+                System.out.printf("what is the width of the rectangle?\n");
+                rectangleWidth = stdIn.nextDouble();
+                System.out.printf("what is the height of the rectangle?\n");
+                rectangleHeight = stdIn.nextDouble();
+                volume = rectangleLength * rectangleWidth * rectangleHeight;
+                System.out.printf("The shape chosen was a %s\nwith a length of %s a width of %s\nand a height of %s\nwhich gives a volume of %.2f\n", choice, rectangleLength, rectangleWidth, rectangleHeight, volume);
+            }
+            else{
+                System.out.printf("That option is not among the list of shapes provided, please choose again\n");
+            }
+            
+            stdIn.nextLine();
+            
+            System.out.printf("Press q to quit or any other key to continue.\n");
+            quit = stdIn.nextLine();
+        }
+        stdIn.close();
+    }
+}
