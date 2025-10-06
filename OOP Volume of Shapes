@@ -1,0 +1,154 @@
+
+/**
+ * Write a description of class AreaOfCircle here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+
+import java.util.Scanner;
+
+class SphereVolume{
+    private double sphereRadius;
+    private final double fourThirds = 4/3.0;
+    private double volume;
+    private String choice;
+    
+    public void pickShape(String choice){
+        this.choice = choice;
+    }
+    
+    public void calculateVolume(Scanner stdIn){
+        //final double fourThirds = 4/3.0;
+        System.out.printf("what is the radius of the sphere?\n");
+        sphereRadius = stdIn.nextDouble();
+        volume = fourThirds*Math.PI*Math.pow(sphereRadius, 3);
+        System.out.printf("The shape chosen was a %s with a radius of %s \nwhich gives a volume of %.2f\n", choice, sphereRadius, volume );
+    }
+}
+
+class CubeVolume{
+    private double sideLength; // the length of one side for the square (all sides should be equal)
+    private double volume;
+    private String choice;
+    
+    public void pickShape(String choice){
+        this.choice = choice;
+    }
+    
+    public void calculateVolume(Scanner stdIn){
+        System.out.printf("what is the length for one side of the cube? (all sides should be equal)\n");
+        sideLength = stdIn.nextDouble();
+        volume = Math.pow(sideLength, 3);
+        System.out.printf("The shape chosen was a %s\nwith a side length of %s\nwhich gives an volume of %.2f\n", choice, sideLength, volume);
+    }
+    
+}
+
+class ConeVolume{
+    private double coneRadius; // base of the triangle
+    private double coneHeight; // height of the triangle
+    private double volume;
+    private String choice;
+    
+    public void pickShape(String choice){
+        this.choice = choice;
+    }
+    
+    public void setVariables(double coneRadius, double coneHeight){
+        this.coneRadius = coneRadius;
+        this.coneHeight = coneHeight;
+    }
+    
+    public void calculateVolume(Scanner stdIn){
+        System.out.printf("what is the radius of the cone?\n");
+        coneRadius = stdIn.nextDouble();
+        System.out.printf("what is the height of the cone?\n");
+        coneHeight = stdIn.nextDouble();
+        volume = Math.PI * Math.pow(coneRadius, 2) * (coneHeight/3.0);
+        System.out.printf("The shape chosen was a %s with a radius of %s\nand a height of %s which gives a volume of %.2f\n", choice, coneRadius, coneHeight, volume);
+    }
+    
+}
+
+class RectPrismVolume{
+    private double rectangleLength; // base of the rectangle
+    private double rectangleWidth;
+    private double rectangleHeight; // height of the rectangle
+    private double volume;
+    private String choice;
+    
+    public void pickShape(String choice){
+        this.choice = choice;
+    }
+    
+    public void setVariables(double rectangleLength, double rectangleWidth, double rectangleHeight){
+        this.rectangleLength = rectangleLength;
+        this.rectangleWidth = rectangleWidth;
+        this.rectangleHeight = rectangleHeight;
+    }
+    
+    public void calculateVolume(Scanner stdIn){
+        System.out.printf("what is the length of the rectangular prism?\n");
+        rectangleLength = stdIn.nextDouble();
+        System.out.printf("what is the width of the rectangular prism?\n");
+        rectangleWidth = stdIn.nextDouble();
+        System.out.printf("what is the height of the rectangular prism?\n");
+        rectangleHeight = stdIn.nextDouble();
+        volume = rectangleLength * rectangleWidth * rectangleHeight;
+        System.out.printf("The shape chosen was a %s\nwith a length of %s a width of %s\nand a height of %s\nwhich gives a volume of %.2f\n", choice, rectangleLength, rectangleWidth, rectangleHeight, volume);
+    }
+    
+}
+
+public class VolumeOfShapesOOP
+{
+    public static void main(String[] args)
+    {
+        Scanner stdIn = new Scanner(System.in);
+        SphereVolume sphere = new SphereVolume();
+        CubeVolume cube = new CubeVolume();
+        ConeVolume cone = new ConeVolume();
+        RectPrismVolume rect = new RectPrismVolume();
+        String quit = "";
+        
+        while (!quit.equalsIgnoreCase("q")){
+            
+            System.out.printf("Please choose which shape to calculate the area for: sphere, cube, cone, rectangular prism\n");
+            String choice = stdIn.nextLine();
+            
+            sphere.pickShape(choice);
+            cube.pickShape(choice);
+            cone.pickShape(choice);
+            rect.pickShape(choice);
+                        
+            //end of variable section ----------------------
+            if (choice.equalsIgnoreCase("sphere")){
+                sphere.calculateVolume(stdIn);
+            }
+            else if (choice.equalsIgnoreCase("cube")){
+                cube.calculateVolume(stdIn);
+            }
+            else if (choice.equalsIgnoreCase("cone")){
+                cone.calculateVolume(stdIn);
+            }
+            else if (choice.equalsIgnoreCase("rectangular prism")){
+                rect.calculateVolume(stdIn);
+            }
+            else{
+                System.out.printf("That option is not among the list of shapes provided, please choose again\n");
+            }
+            
+            
+            //shape.setVariables(sphereRadius, sideLength, coneRadius, coneHeight, rectangleLength, rectangleWidth, rectangleHeight);
+            
+            //shape.calculateVolume();
+           
+            stdIn.nextLine();
+            
+            System.out.printf("Press q to quit or any other key to continue.\n");
+            quit = stdIn.nextLine();
+        }
+        stdIn.close();
+    }
+}
