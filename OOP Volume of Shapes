@@ -18,12 +18,12 @@ class SphereVolume{
         this.choice = choice;
     }
     
-    public void calculateVolume(Scanner stdIn){
-        //final double fourThirds = 4/3.0;
-        System.out.printf("what is the radius of the sphere?\n");
-        sphereRadius = stdIn.nextDouble();
-        volume = fourThirds*Math.PI*Math.pow(sphereRadius, 3);
-        System.out.printf("The shape chosen was a %s with a radius of %s \nwhich gives a volume of %.2f\n", choice, sphereRadius, volume );
+    public void setVariable(double sphereRadius){
+        this.sphereRadius = sphereRadius;
+    }
+    
+    public double calculateVolume(){
+        return this.fourThirds*Math.PI*Math.pow(this.sphereRadius, 3);
     }
 }
 
@@ -36,11 +36,12 @@ class CubeVolume{
         this.choice = choice;
     }
     
-    public void calculateVolume(Scanner stdIn){
-        System.out.printf("what is the length for one side of the cube? (all sides should be equal)\n");
-        sideLength = stdIn.nextDouble();
-        volume = Math.pow(sideLength, 3);
-        System.out.printf("The shape chosen was a %s\nwith a side length of %s\nwhich gives an volume of %.2f\n", choice, sideLength, volume);
+    public void setVariable(double sideLength){
+        this.sideLength = sideLength;
+    }
+    
+    public double calculateVolume(){
+        return this.volume = Math.pow(this.sideLength, 3);
     }
     
 }
@@ -55,18 +56,13 @@ class ConeVolume{
         this.choice = choice;
     }
     
-    public void setVariables(double coneRadius, double coneHeight){
+    public void setVariable(double coneRadius, double coneHeight){
         this.coneRadius = coneRadius;
         this.coneHeight = coneHeight;
     }
     
-    public void calculateVolume(Scanner stdIn){
-        System.out.printf("what is the radius of the cone?\n");
-        coneRadius = stdIn.nextDouble();
-        System.out.printf("what is the height of the cone?\n");
-        coneHeight = stdIn.nextDouble();
-        volume = Math.PI * Math.pow(coneRadius, 2) * (coneHeight/3.0);
-        System.out.printf("The shape chosen was a %s with a radius of %s\nand a height of %s which gives a volume of %.2f\n", choice, coneRadius, coneHeight, volume);
+    public double calculateVolume(){
+        return this.volume = Math.PI * Math.pow(this.coneRadius, 2) * (this.coneHeight/3.0);
     }
     
 }
@@ -82,21 +78,14 @@ class RectPrismVolume{
         this.choice = choice;
     }
     
-    public void setVariables(double rectangleLength, double rectangleWidth, double rectangleHeight){
+    public void setVariable(double rectangleLength, double rectangleWidth, double rectangleHeight){
         this.rectangleLength = rectangleLength;
         this.rectangleWidth = rectangleWidth;
         this.rectangleHeight = rectangleHeight;
     }
     
-    public void calculateVolume(Scanner stdIn){
-        System.out.printf("what is the length of the rectangular prism?\n");
-        rectangleLength = stdIn.nextDouble();
-        System.out.printf("what is the width of the rectangular prism?\n");
-        rectangleWidth = stdIn.nextDouble();
-        System.out.printf("what is the height of the rectangular prism?\n");
-        rectangleHeight = stdIn.nextDouble();
-        volume = rectangleLength * rectangleWidth * rectangleHeight;
-        System.out.printf("The shape chosen was a %s\nwith a length of %s a width of %s\nand a height of %s\nwhich gives a volume of %.2f\n", choice, rectangleLength, rectangleWidth, rectangleHeight, volume);
+    public double calculateVolume(){
+        return this.volume = this.rectangleLength * this.rectangleWidth * this.rectangleHeight;
     }
     
 }
@@ -117,6 +106,23 @@ public class VolumeOfShapesOOP
             System.out.printf("Please choose which shape to calculate the area for: sphere, cube, cone, rectangular prism\n");
             String choice = stdIn.nextLine();
             
+            //sphere variables
+            double sphereRadius;
+            
+            //cube variables
+            double sideLength;
+            
+            //cone variables
+            double coneRadius;
+            double coneHeight;
+            
+            //rectangular prism variables
+            double rectangleLength;
+            double rectangleWidth;
+            double rectangleHeight;
+            
+            double volume;
+            
             sphere.pickShape(choice);
             cube.pickShape(choice);
             cone.pickShape(choice);
@@ -124,25 +130,42 @@ public class VolumeOfShapesOOP
                         
             //end of variable section ----------------------
             if (choice.equalsIgnoreCase("sphere")){
-                sphere.calculateVolume(stdIn);
+                System.out.printf("what is the radius of the sphere?\n");
+                sphereRadius = stdIn.nextDouble();
+                sphere.setVariable(sphereRadius);
+                volume = sphere.calculateVolume();
+                System.out.printf("The shape chosen was a %s with a radius of %s \nwhich gives a volume of %.2f\n", choice, sphereRadius, volume );
             }
             else if (choice.equalsIgnoreCase("cube")){
-                cube.calculateVolume(stdIn);
+                System.out.printf("what is the length for one side of the cube? (all sides should be equal)\n");
+                sideLength = stdIn.nextDouble();
+                cube.setVariable(sideLength);
+                volume = cube.calculateVolume();
+                System.out.printf("The shape chosen was a %s\nwith a side length of %s\nwhich gives an volume of %.2f\n", choice, sideLength, volume);
             }
             else if (choice.equalsIgnoreCase("cone")){
-                cone.calculateVolume(stdIn);
+                System.out.printf("what is the radius of the cone?\n");
+                coneRadius = stdIn.nextDouble();
+                System.out.printf("what is the height of the cone?\n");
+                coneHeight = stdIn.nextDouble();
+                cone.setVariable(coneRadius, coneHeight);
+                volume = cone.calculateVolume();
+                System.out.printf("The shape chosen was a %s with a radius of %s\nand a height of %s which gives a volume of %.2f\n", choice, coneRadius, coneHeight, volume);
             }
             else if (choice.equalsIgnoreCase("rectangular prism")){
-                rect.calculateVolume(stdIn);
+                System.out.printf("what is the length of the rectangular prism?\n");
+                rectangleLength = stdIn.nextDouble();
+                System.out.printf("what is the width of the rectangular prism?\n");
+                rectangleWidth = stdIn.nextDouble();
+                System.out.printf("what is the height of the rectangular prism?\n");
+                rectangleHeight = stdIn.nextDouble();
+                rect.setVariable(rectangleLength, rectangleWidth, rectangleHeight);
+                volume = rect.calculateVolume();
+                System.out.printf("The shape chosen was a %s\nwith a length of %s a width of %s\nand a height of %s\nwhich gives a volume of %.2f\n", choice, rectangleLength, rectangleWidth, rectangleHeight, volume);
             }
             else{
                 System.out.printf("That option is not among the list of shapes provided, please choose again\n");
             }
-            
-            
-            //shape.setVariables(sphereRadius, sideLength, coneRadius, coneHeight, rectangleLength, rectangleWidth, rectangleHeight);
-            
-            //shape.calculateVolume();
            
             stdIn.nextLine();
             
